@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Movies</title>
+</head>
+<body>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+  :root {
+    --image-width: calc(128px * 1.25);
+    --image-height: calc(176px * 1.25);
+    --primary-color: #232C33;
+    --secondary-color: #0C463F;
+    --tertiary-color: 28, 93, 74;
+    --text-color: #FFFFFF;
+    --dimmed-text-color: #C8C8C8;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+  }
+
+  body {
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--primary-color);
+  }
+
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    padding: .2em;
+  }
+
+  .movie {
+    display: inline-flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+
+    gap: 5px;
+    padding: 1.4rem 1.6rem;
+    margin: .8rem;
+    border-radius: .6rem;
+
+    box-shadow: 2px 0 12px 0 rgba(var(--tertiary-color), 33%);
+  
+    transition: ease .2s;
+  }
+
+  .movie > .top {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movie > .top > .title {
+    text-align: center;
+    align-self: center;
+  
+    max-width: fit-content;
+    
+    inline-size: var(--image-width);
+    overflow-wrap: break-word;  
+  }
+
+  .movie > .bottom {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movie > .bottom > .image {
+    width: var(--image-width);
+    height: var(--image-height);
+
+    border-radius: .6rem;
+  }
+
+  .movie > .bottom > .others {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: .5rem .5rem 0 .5rem;
+  }
+
+  .movie > .bottom > .others > .rating {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .movie > .bottom > .others > .year {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: var(--dimmed-text-color);
+
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .movie:hover {
+    transform: scale(1.05);
+  }
+</style>
+  <div class="movies">
+    <div class="movie" th:each="movie : ${movies}">
+      <div class="top">
+        <span class="title" th:text="${movie.title}">Title</span>
+      </div>
+      
+      <div class="bottom">
+        <img class="image"
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.htmlcsscolor.com%2Fpreview%2F64x64%2F000000.png&f=1&nofb=1" th:src="@{${movie.image}}"
+            alt="Film Image" th:alt="${movie.title + ' Image'}"
+        >
+          <div class="others">
+          <span class="rating" th:text="${movie.imDbRating}">Rating</span>
+          <span class="year" th:text="${movie.year}">Year</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const ratings = document.querySelectorAll('.rating');
+
+    ratings.forEach(rating => {
+      const value = rating.innerText;
+
+      if (value < 4) {
+        rating.style.color = 'red';
+      } else if (value < 8) {
+        rating.style.color = 'yellow';
+      } else {
+        rating.style.color = 'green';
+      }
+
+    });
+  </script>
+</body>
+</html>
+
+
+<!--id-->
+<!--rank-->
+<!--title-->
+<!--fullTitle-->
+<!--year-->
+<!--image-->
+<!--crew-->
+<!--imDbRating-->
+<!--imDbRatingCount-->
